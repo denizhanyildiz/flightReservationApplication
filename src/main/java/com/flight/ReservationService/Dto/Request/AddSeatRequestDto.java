@@ -1,4 +1,4 @@
-package com.flight.ReservationService.Dto;
+package com.flight.ReservationService.Dto.Request;
 
 import com.flight.ReservationService.Entity.Enum.Category;
 import com.flight.ReservationService.Entity.Money;

@@ -2,16 +2,16 @@ package com.flight.ReservationService.Service;
 
 import com.flight.ReservationService.CustomException.FlightNotFoundException;
 import com.flight.ReservationService.CustomException.FlightPlannedExistsWithSamePlane;
-import com.flight.ReservationService.Dto.CreateFlightRequestDto;
-import com.flight.ReservationService.Dto.AddSeatRequestDto;
-import com.flight.ReservationService.Dto.UpdateFlightRequestDto;
-import com.flight.ReservationService.Dto.UpdateSeatRequestDto;
-import com.flight.ReservationService.Entity.Airport;
+import com.flight.ReservationService.Dto.Request.CreateFlightRequestDto;
+import com.flight.ReservationService.Dto.Request.AddSeatRequestDto;
+import com.flight.ReservationService.Dto.Request.UpdateFlightRequestDto;
+import com.flight.ReservationService.Dto.Request.UpdateSeatRequestDto;
+import com.flight.ReservationService.Dto.Response.FlightWithSeatsDto;
+import com.flight.ReservationService.Entity.*;
 import com.flight.ReservationService.Entity.Enum.Situation;
 import com.flight.ReservationService.Entity.Enum.Status;
-import com.flight.ReservationService.Entity.Flight;
-import com.flight.ReservationService.Entity.Plane;
 import com.flight.ReservationService.Service.Impl.FlightRepository;
+import com.flight.ReservationService.Utils.FlightDtoMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +49,11 @@ public class FlightService {
         Flight deleted = findById(id);
         deleted.setStatus(Status.DELETED);
         flightRepository.save(deleted);
+    }
+
+    public List<Flight> findByStatus(Status status) {
+        return flightRepository.findByStatus(status)
+                .orElseThrow(() -> new FlightNotFoundException("Flight not found with status: " + status + " or the flight is not active."));
     }
 
     public Flight update(Flight flight) {
@@ -140,4 +145,10 @@ public class FlightService {
         return planeService.updateSeat(flight.getPlane(), seatRequestDto);
     }
 
+    public FlightWithSeatsDto getFlightWithSeats(String flightNumber) {
+        Flight flight = flightRepository.findByFlightNumberAndStatus(flightNumber, Status.ACTIVE)
+                .orElseThrow(() -> new FlightNotFoundException("Flight not found with number: " + flightNumber));
+
+        return FlightDtoMapper.mapToFlightWithSeatsDto(flight);
+    }
 }

@@ -1,7 +1,7 @@
 package com.flight.ReservationService.Service;
 
 import com.flight.ReservationService.CustomException.SeatNotFoundException;
-import com.flight.ReservationService.Dto.UpdateSeatRequestDto;
+import com.flight.ReservationService.Dto.Request.UpdateSeatRequestDto;
 import com.flight.ReservationService.Entity.Enum.Status;
 import com.flight.ReservationService.Entity.Money;
 import com.flight.ReservationService.Entity.Plane;

@@ -2,8 +2,8 @@ package com.flight.ReservationService.Service;
 
 import com.flight.ReservationService.CustomException.PlaneExceedsMaximumSeat;
 import com.flight.ReservationService.CustomException.PlaneNotFoundException;
-import com.flight.ReservationService.Dto.AddSeatRequestDto;
-import com.flight.ReservationService.Dto.UpdateSeatRequestDto;
+import com.flight.ReservationService.Dto.Request.AddSeatRequestDto;
+import com.flight.ReservationService.Dto.Request.UpdateSeatRequestDto;
 import com.flight.ReservationService.Entity.Enum.Category;
 import com.flight.ReservationService.Entity.Enum.State;
 import com.flight.ReservationService.Entity.Enum.Status;
