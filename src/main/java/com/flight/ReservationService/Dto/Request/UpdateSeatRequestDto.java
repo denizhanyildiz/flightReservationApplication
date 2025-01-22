@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateSeatRequestDto {
-    private String seatNumber;
     private Category category;
     private MoneyDto money;
     private State state;

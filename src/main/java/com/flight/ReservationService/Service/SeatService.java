@@ -64,8 +64,8 @@ public class SeatService {
                 .orElseThrow(() -> new SeatNotFoundException("Seat not found with number: " + seatNumber + " in this plane"));
     }
 
-    public Seat updateSeat(Plane plane, UpdateSeatRequestDto dto) {
-        Seat seat = findByNumberAndPlain(dto.getSeatNumber(), plane);
+    public Seat updateSeat(Plane plane, String seatNumber, UpdateSeatRequestDto dto) {
+        Seat seat = findByNumberAndPlain(seatNumber, plane);
 
         Optional.ofNullable(dto.getCategory()).ifPresent(seat::setCategory);
         Optional.ofNullable(dto.getMoney()).ifPresent(money -> {
