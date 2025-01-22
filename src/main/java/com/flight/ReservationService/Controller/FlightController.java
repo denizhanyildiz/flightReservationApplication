@@ -1,9 +1,10 @@
 package com.flight.ReservationService.Controller;
 
-import com.flight.ReservationService.Dto.CreateFlightRequestDto;
-import com.flight.ReservationService.Dto.AddSeatRequestDto;
-import com.flight.ReservationService.Dto.UpdateFlightRequestDto;
-import com.flight.ReservationService.Dto.UpdateSeatRequestDto;
+import com.flight.ReservationService.Dto.Request.CreateFlightRequestDto;
+import com.flight.ReservationService.Dto.Request.AddSeatRequestDto;
+import com.flight.ReservationService.Dto.Request.UpdateFlightRequestDto;
+import com.flight.ReservationService.Dto.Request.UpdateSeatRequestDto;
+import com.flight.ReservationService.Dto.Response.FlightWithSeatsDto;
 import com.flight.ReservationService.Entity.Flight;
 import com.flight.ReservationService.Entity.Plane;
 import com.flight.ReservationService.Service.FlightService;
@@ -61,5 +62,10 @@ public class FlightController {
         return new ResponseEntity<>(updatedFlight, HttpStatus.OK);
     }
 
+    @GetMapping("/detail/{flightNumber}")
+    public ResponseEntity<FlightWithSeatsDto> getFlightWithSeats(@PathVariable String flightNumber) {
+        FlightWithSeatsDto flight = flightService.getFlightWithSeats(flightNumber);
+        return ResponseEntity.ok(flight);
+    }
 
 }
