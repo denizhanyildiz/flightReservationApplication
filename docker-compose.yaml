@@ -1,24 +1,5 @@
 version: "3.8"
 services:
-  flight-reservation:
-    restart: on-failure
-    container_name: flight-reservation-service
-    build:
-      context: .
-      dockerfile: dockerfile-flight-reservation-service
-    ports:
-      - "8080:8080"
-    environment:
-      spring.datasource.url: jdbc:mysql://mysqldb:3306/booking_db?createDatabaseIfNotExist=true
-      spring.datasource.username: booking
-      spring.datasource.password: booking
-      spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
-      spring.sql.init.mode: always
-    depends_on:
-      - postgresql
-    networks:
-      - flight-application-network
-
   postgresql:
     image: postgres:latest
     restart: on-failure
