@@ -2,6 +2,7 @@ package com.flight.ReservationService.Entity.Enum;
 
 public enum Status {
     ACTIVE,
-    DELETED
+    DELETED,
+    AWAITING
 
 }

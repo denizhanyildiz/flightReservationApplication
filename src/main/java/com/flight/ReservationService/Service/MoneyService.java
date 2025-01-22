@@ -1,7 +1,8 @@
-package com.flight.ReservationService.Service.Impl;
+package com.flight.ReservationService.Service;
 
+import com.flight.ReservationService.Entity.Enum.Status;
 import com.flight.ReservationService.Entity.Money;
-import com.flight.ReservationService.Service.MoneyRepository;
+import com.flight.ReservationService.Service.Impl.MoneyRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -24,10 +25,13 @@ public class MoneyService {
     }
 
     public Money save(Money money) {
+        money.setStatus(Status.ACTIVE);
         return moneyRepository.save(money);
     }
 
     public void deleteById(Long id) {
-        moneyRepository.deleteById(id);
+        Money deleted = findById(id);
+        deleted.setStatus(Status.DELETED);
+        moneyRepository.save(deleted);
     }
 }

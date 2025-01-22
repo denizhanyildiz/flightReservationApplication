@@ -18,6 +18,7 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor
 public class Airport extends BaseEntity{
     private String name;
+    @Column(nullable = false, unique = true)
     private String code;
     private String location;
     @Enumerated(EnumType.STRING)
