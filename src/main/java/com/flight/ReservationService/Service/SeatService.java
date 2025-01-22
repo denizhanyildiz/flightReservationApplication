@@ -9,6 +9,7 @@ import com.flight.ReservationService.Entity.Seat;
 import com.flight.ReservationService.Service.Impl.SeatRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SeatService {
@@ -66,20 +67,13 @@ public class SeatService {
     public Seat updateSeat(Plane plane, UpdateSeatRequestDto dto) {
         Seat seat = findByNumberAndPlain(dto.getSeatNumber(), plane);
 
-        if (dto.getCategory() != null) {
-            seat.setCategory(dto.getCategory());
-        }
-
-        if (dto.getMoney() != null) {
-            Money updatedMoney = new Money(dto.getMoney().getCurrency(), dto.getMoney().getAmount());
+        Optional.ofNullable(dto.getCategory()).ifPresent(seat::setCategory);
+        Optional.ofNullable(dto.getMoney()).ifPresent(money -> {
+            Money updatedMoney = new Money(money.getCurrency(), money.getAmount());
             Money savedMoney = moneyService.save(updatedMoney);
             seat.setMoney(savedMoney);
-        }
-
-        if (dto.getState() != null) {
-            seat.setState(dto.getState());
-        }
-
+        });
+        Optional.ofNullable(dto.getState()).ifPresent(seat::setState);
         return seatRepository.save(seat);
     }
 }
