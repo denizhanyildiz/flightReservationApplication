@@ -74,6 +74,6 @@ public class SeatService {
             seat.setMoney(savedMoney);
         });
         Optional.ofNullable(dto.getState()).ifPresent(seat::setState);
-        return seatRepository.save(seat);
+        return save(seat);
     }
 }

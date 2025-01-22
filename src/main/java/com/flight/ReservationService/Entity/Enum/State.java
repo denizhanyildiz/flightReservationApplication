@@ -3,5 +3,6 @@ package com.flight.ReservationService.Entity.Enum;
 public enum State {
     BROKEN,
     PURCHASABLE,
-    UN_PURCHASABLE
+    UN_PURCHASABLE,
+    SOLD
 }

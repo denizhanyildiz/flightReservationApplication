@@ -1,5 +1,6 @@
 package com.flight.ReservationService.CustomException;
 
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -41,5 +42,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SeatNotFoundException.class)
     public ResponseEntity<String> handleSeatNotFoundException(SeatNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SeatAlreadySoldException.class)
+    public ResponseEntity<String> handleSeatAlreadySoldException(SeatAlreadySoldException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(OptimisticLockingFailureException.class)
+    public ResponseEntity<String> handleOptimisticLockingFailure(OptimisticLockingFailureException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("The seat was already purchased by another user.");
     }
 }

@@ -25,6 +25,9 @@ public abstract class BaseEntity {
     private LocalDateTime createdTime;
     @Column(nullable = false)
     private LocalDateTime updatedTime;
+    @Version
+    private Integer version;
+
     @PrePersist
     protected void onCreate() {
         this.createdTime = LocalDateTime.now();
