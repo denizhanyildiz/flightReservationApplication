@@ -1,5 +1,6 @@
 package com.flight.ReservationService.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.flight.ReservationService.CustomException.InvalidFlightException;
 import com.flight.ReservationService.Entity.Enum.Situation;
 import lombok.AllArgsConstructor;
@@ -21,15 +22,14 @@ public class Flight extends BaseEntity{
     private Situation situation;
     @Column(nullable = false)
     private LocalDateTime plannedTime;
-    private LocalDateTime delayTime;
-    private LocalDateTime realTime;
     @Column(nullable = false, unique = true)
     private String flightNumber;
     private String flightName;
     @Column(columnDefinition = "TEXT")
     private String flightDescription;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "plane_id", nullable = false)
+    @JsonBackReference(value = "plane-flight")
     private Plane plane;
     @ManyToOne
     @JoinColumn(name = "takeoff_airport_id", nullable = false)

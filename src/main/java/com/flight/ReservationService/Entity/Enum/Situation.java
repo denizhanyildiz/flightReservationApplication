@@ -4,5 +4,6 @@ public enum Situation {
     ON_TIME,
     DELAYED,
     CANCELLED,
-    COMPLETED
+    COMPLETED,
+    ADVANCE
 }
