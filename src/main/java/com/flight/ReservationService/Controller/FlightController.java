@@ -56,9 +56,9 @@ public class FlightController {
         return new ResponseEntity<>(updatedFlight, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/updateSeat/{flightNumber}")
-    public ResponseEntity<Plane> updateSeat(@PathVariable String flightNumber, @RequestBody UpdateSeatRequestDto seatRequestDto) {
-        Plane updatedFlight = flightService.updateSeat(flightNumber, seatRequestDto);
+    @PutMapping(path = "/updateSeat/{flightNumber}/{seatNumber}")
+    public ResponseEntity<Plane> updateSeat(@PathVariable String flightNumber, @PathVariable String seatNumber, @RequestBody UpdateSeatRequestDto seatRequestDto) {
+        Plane updatedFlight = flightService.updateSeat(flightNumber, seatNumber, seatRequestDto);
         return new ResponseEntity<>(updatedFlight, HttpStatus.OK);
     }
 

@@ -60,6 +60,11 @@ public class FlightService {
         return flightRepository.save(flight);
     }
 
+    public Flight findByFlightNumber(String flightNumber) {
+        return flightRepository.findByFlightNumberAndStatus(flightNumber, Status.ACTIVE)
+                .orElseThrow(() -> new FlightNotFoundException("Flight not found with number: " + flightNumber));
+    }
+
     public Flight createFlight(CreateFlightRequestDto createFlightRequestDto) {
         Plane plane = planeService.findByCode(createFlightRequestDto.getPlaneCode());
 
@@ -139,10 +144,10 @@ public class FlightService {
         return planeService.removeSeat(flight.getPlane(), seatNumber);
     }
 
-    public Plane updateSeat(String flightNumber, UpdateSeatRequestDto seatRequestDto) {
+    public Plane updateSeat(String flightNumber, String seatNumber, UpdateSeatRequestDto seatRequestDto) {
         Flight flight = flightRepository.findByFlightNumberAndStatus(flightNumber, Status.ACTIVE)
                 .orElseThrow(() -> new FlightNotFoundException("Flight not found with number: " + flightNumber));
-        return planeService.updateSeat(flight.getPlane(), seatRequestDto);
+        return planeService.updateSeat(flight.getPlane(), seatNumber, seatRequestDto);
     }
 
     public FlightWithSeatsDto getFlightWithSeats(String flightNumber) {

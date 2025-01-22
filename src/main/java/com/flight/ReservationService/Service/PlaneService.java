@@ -106,8 +106,8 @@ public class PlaneService {
         return findByCode(plane.getCode());
     }
 
-    public Plane updateSeat(Plane plane, UpdateSeatRequestDto updateSeatRequestDto) {
-        seatService.updateSeat(plane, updateSeatRequestDto);
+    public Plane updateSeat(Plane plane, String seatNumber, UpdateSeatRequestDto updateSeatRequestDto) {
+        seatService.updateSeat(plane, seatNumber, updateSeatRequestDto);
         return findByCode(plane.getCode());
     }
 

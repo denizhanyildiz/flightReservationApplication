@@ -18,9 +18,9 @@ public class PurchaseController {
         this.purchaseService = purchaseService;
     }
 
-    @PostMapping("/buy-seat/{seatNumber}")
-    public ResponseEntity<Seat> buySeat(@PathVariable String seatNumber) {
-        Seat purchasedSeat = purchaseService.buySeat(seatNumber);
+    @PostMapping("/buySeat/{seatNumber}/{flightNumber}")
+    public ResponseEntity<Seat> buySeat(@PathVariable String seatNumber, @PathVariable String flightNumber) {
+        Seat purchasedSeat = purchaseService.buySeat(seatNumber, flightNumber);
         return ResponseEntity.ok(purchasedSeat);
     }
 
