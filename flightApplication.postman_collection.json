@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "c7ab8e4b-fc0b-43a3-8fe6-b22e62bb1b9f",
+		"name": "flightApplication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27990544"
+	},
+	"item": [
+		{
+			"name": "reservationService",
+			"item": [
+				{
+					"name": "addFlight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flightName\": \"Flight 101\",\n  \"flightDescription\": \"Morning flight from Istanbul to Ankara\",\n  \"plannedTime\": \"2025-01-23T10:00:00\",\n  \"takeoffAirportCode\": \"IST\",\n  \"arrivalAirportCode\": \"ESB\",\n  \"planeCode\": \"G650-1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/flights/addFlight",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"flights",
+								"addFlight"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeFlight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/flights/removeFlight/afc99caf-630d-4358-8ae4-857bec2c999d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"flights",
+								"removeFlight",
+								"afc99caf-630d-4358-8ae4-857bec2c999d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateFlight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flightName\": \"Flight 102\",\n  \"flightDescription\": \"Morning flight from Ankara to Istanbul\",\n  \"situation\": \"DELAYED\",\n  \"plannedTime\": \"2025-01-25T08:05:00\",\n  \"takeoffAirportCode\": \"ESB\",\n  \"arrivalAirportCode\": \"IST\",\n  \"planeCode\": \"G650-1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/flights/updateFlight/afc99caf-630d-4358-8ae4-857bec2c999d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"flights",
+								"updateFlight",
+								"afc99caf-630d-4358-8ae4-857bec2c999d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addSeatToFlight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"category\": \"ECONOMY\",\n        \"money\": {\n            \"currency\": \"USD\",\n            \"amount\": 100.0\n        }\n    },\n    {\n        \"category\": \"BUSINESS\",\n        \"money\": {\n            \"currency\": \"USD\",\n            \"amount\": 200.0\n        }\n    },\n    {\n        \"category\": \"FIRST_CLASS\",\n        \"money\": {\n            \"currency\": \"EUR\",\n            \"amount\": 300.0\n        }\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/flights/addSeat/afc99caf-630d-4358-8ae4-857bec2c999d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"flights",
+								"addSeat",
+								"afc99caf-630d-4358-8ae4-857bec2c999d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeSeat",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/flights/removeSeat/afc99caf-630d-4358-8ae4-857bec2c999d/BS-2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"flights",
+								"removeSeat",
+								"afc99caf-630d-4358-8ae4-857bec2c999d",
+								"BS-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSeat",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": \"FIRST_CLASS\",\n    \"money\": {\n        \"currency\": \"USD\",\n        \"amount\": 130.0\n    },\n    \"state\": \"PURCHASABLE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/flights/updateSeat/afc99caf-630d-4358-8ae4-857bec2c999d/BS-2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"flights",
+								"updateSeat",
+								"afc99caf-630d-4358-8ae4-857bec2c999d",
+								"BS-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFlightDetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/flights/detail/afc99caf-630d-4358-8ae4-857bec2c999d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"flights",
+								"detail",
+								"afc99caf-630d-4358-8ae4-857bec2c999d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buySeat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/purchase/buySeat/BS-2/afc99caf-630d-4358-8ae4-857bec2c999d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"purchase",
+								"buySeat",
+								"BS-2",
+								"afc99caf-630d-4358-8ae4-857bec2c999d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
