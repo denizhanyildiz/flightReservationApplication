@@ -1,7 +1,9 @@
 package com.flight.ReservationService.Service;
 
+import com.flight.ReservationService.CustomException.SeatAlreadySoldException;
 import com.flight.ReservationService.CustomException.SeatNotFoundException;
 import com.flight.ReservationService.Dto.Request.UpdateSeatRequestDto;
+import com.flight.ReservationService.Entity.Enum.State;
 import com.flight.ReservationService.Entity.Enum.Status;
 import com.flight.ReservationService.Entity.Money;
 import com.flight.ReservationService.Entity.Plane;
@@ -66,6 +68,9 @@ public class SeatService {
 
     public Seat updateSeat(Plane plane, String seatNumber, UpdateSeatRequestDto dto) {
         Seat seat = findByNumberAndPlain(seatNumber, plane);
+        if (seat.getState().equals(State.SOLD)) {
+            throw new SeatAlreadySoldException("Seat has been sold can not be update.");
+        }
 
         Optional.ofNullable(dto.getCategory()).ifPresent(seat::setCategory);
         Optional.ofNullable(dto.getMoney()).ifPresent(money -> {
@@ -75,5 +80,11 @@ public class SeatService {
         });
         Optional.ofNullable(dto.getState()).ifPresent(seat::setState);
         return save(seat);
+    }
+
+    public void makeSeatAvailable(Seat seat) {
+        seat.setStatus(Status.ACTIVE);
+        seat.setState(State.PURCHASABLE);
+        update(seat);
     }
 }
