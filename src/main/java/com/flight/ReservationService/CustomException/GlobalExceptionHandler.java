@@ -48,4 +48,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleSeatAlreadySoldException(SeatAlreadySoldException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(BuySeatNotAvailable.class)
+    public ResponseEntity<String> handleBuySeatNotAvailable(BuySeatNotAvailable ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FlightCanNotBeUpdated.class)
+    public ResponseEntity<String> handleFlightCanNotBeUpdated(FlightCanNotBeUpdated ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SeatCanNotBeRemove.class)
+    public ResponseEntity<String> handleSeatCanNotBeRemove(SeatCanNotBeRemove ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

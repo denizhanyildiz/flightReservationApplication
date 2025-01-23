@@ -1,5 +1,6 @@
 package com.flight.ReservationService.Service;
 
+import com.flight.ReservationService.CustomException.FlightCanNotBeUpdated;
 import com.flight.ReservationService.CustomException.FlightNotFoundException;
 import com.flight.ReservationService.CustomException.FlightPlannedExistsWithSamePlane;
 import com.flight.ReservationService.Dto.Request.CreateFlightRequestDto;
@@ -93,6 +94,7 @@ public class FlightService {
         Flight flight = flightRepository.findByFlightNumberAndStatus(flightNumber, Status.ACTIVE)
                 .orElseThrow(() -> new FlightNotFoundException("Flight not found with number: " + flightNumber));
         flight.setSituation(Situation.CANCELLED);
+        flight.getPlane().getSeats().forEach(planeService::makePlaneSeatsAvailable);
         return update(flight);
     }
 
@@ -134,7 +136,11 @@ public class FlightService {
     public Plane addSeat(String flightNumber, List<AddSeatRequestDto> addSeatRequestDtos) {
         Flight flight = flightRepository.findByFlightNumberAndStatus(flightNumber, Status.ACTIVE)
                 .orElseThrow(() -> new FlightNotFoundException("Flight not found with number: " + flightNumber));
-
+        if (flight.getSituation().equals(Situation.CANCELLED)) {
+            throw new FlightCanNotBeUpdated("Can not be add seat. Flight already cancelled.");
+        } else if (flight.getSituation().equals(Situation.COMPLETED)) {
+            throw new FlightCanNotBeUpdated("Can not be add seat. Flight already completed.");
+        }
         return planeService.addSeatsToPlane(flight.getPlane(), addSeatRequestDtos);
     }
 

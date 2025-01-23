@@ -2,6 +2,7 @@ package com.flight.ReservationService.Service;
 
 import com.flight.ReservationService.CustomException.PlaneExceedsMaximumSeat;
 import com.flight.ReservationService.CustomException.PlaneNotFoundException;
+import com.flight.ReservationService.CustomException.SeatCanNotBeRemove;
 import com.flight.ReservationService.Dto.Request.AddSeatRequestDto;
 import com.flight.ReservationService.Dto.Request.UpdateSeatRequestDto;
 import com.flight.ReservationService.Entity.Enum.Category;
@@ -101,6 +102,9 @@ public class PlaneService {
 
     public Plane removeSeat(Plane plane, String seatNumber) {
         Seat seat = seatService.findByNumberAndPlain(seatNumber, plane);
+        if (seat.getState().equals(State.SOLD)){
+            throw new SeatCanNotBeRemove("This seat has already sold, can not be remove.");
+        }
         seat.setState(State.UN_PURCHASABLE);
         seatService.update(seat);
         return findByCode(plane.getCode());
@@ -109,6 +113,10 @@ public class PlaneService {
     public Plane updateSeat(Plane plane, String seatNumber, UpdateSeatRequestDto updateSeatRequestDto) {
         seatService.updateSeat(plane, seatNumber, updateSeatRequestDto);
         return findByCode(plane.getCode());
+    }
+
+    public void makePlaneSeatsAvailable(Seat seat) {
+        seatService.makeSeatAvailable(seat);
     }
 
     private String generateSeatNumber(Category category, int number) {

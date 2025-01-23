@@ -75,7 +75,7 @@ public class DummyDataInitializer {
     private List<Seat> generateSeats(Plane plane, Money money, Category category, int count) {
         List<Seat> seats = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
-            seats.add(new Seat(category.getShortening() + i, category, plane, money, State.PURCHASABLE));
+            seats.add(new Seat(category.getShortening() + "-" + i, category, plane, money, State.PURCHASABLE));
         }
         return seats;
     }
